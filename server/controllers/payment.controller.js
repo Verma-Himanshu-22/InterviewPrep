@@ -6,8 +6,17 @@ import crypto from "crypto";
 export const createOrder = async (req, res) => {
   try {
     const { planId, amount, credits } = req.body;
-    if (!amount || !credits) {
-      return res.status(400).json({ message: "Invalid plan data" });
+    
+    if (!planId || amount === undefined || !credits) {
+      return res.status(400).json({ message: "planId, amount, and credits are required" });
+    }
+
+    if (typeof amount !== "number" || amount < 0) {
+      return res.status(400).json({ message: "Invalid amount" });
+    }
+
+    if (typeof credits !== "number" || credits <= 0) {
+      return res.status(400).json({ message: "Invalid credits" });
     }
 
     const options = {
@@ -39,6 +48,10 @@ export const verifyPayment = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({ message: "Missing payment verification details" });
+    }
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 

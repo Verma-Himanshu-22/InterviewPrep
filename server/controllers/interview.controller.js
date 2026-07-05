@@ -57,16 +57,23 @@ Return strictly JSON:
 
     const aiResponse = await askAi(messages)
 
-    const parsed = JSON.parse(aiResponse);
+    let parsed;
+    try {
+      parsed = JSON.parse(aiResponse);
+    } catch (parseError) {
+      if (req.file && fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+      return res.status(500).json({ message: `Failed to parse resume analysis: ${parseError.message}` });
+    }
 
     fs.unlinkSync(filepath)
 
-
     res.json({
-      role: parsed.role,
-      experience: parsed.experience,
-      projects: parsed.projects,
-      skills: parsed.skills,
+      role: parsed.role || "Unknown",
+      experience: parsed.experience || "Not specified",
+      projects: Array.isArray(parsed.projects) ? parsed.projects : [],
+      skills: Array.isArray(parsed.skills) ? parsed.skills : [],
       resumeText
     });
 
@@ -227,7 +234,19 @@ export const submitAnswer = async (req, res) => {
   try {
     const { interviewId, questionIndex, answer, timeTaken } = req.body
 
+    if (!interviewId || questionIndex === undefined) {
+      return res.status(400).json({message:"interviewId and questionIndex are required"})
+    }
+
     const interview = await Interview.findById(interviewId)
+    if (!interview) {
+      return res.status(404).json({message:"Interview not found"})
+    }
+
+    if (interview.userId.toString() !== req.userId) {
+      return res.status(403).json({message:"Unauthorized: You do not have access to this interview"})
+    }
+
     const question = interview.questions[questionIndex]
 
     // If no answer
@@ -314,8 +333,12 @@ Answer: ${answer}
 
     const aiResponse = await askAi(messages)
 
-
-    const parsed = JSON.parse(aiResponse);
+    let parsed;
+    try {
+      parsed = JSON.parse(aiResponse);
+    } catch (parseError) {
+      return res.status(500).json({message:`Failed to parse AI response: ${parseError.message}`})
+    }
 
     question.answer = answer;
     question.confidence = parsed.confidence;
@@ -337,9 +360,18 @@ Answer: ${answer}
 export const finishInterview = async (req,res) => {
   try {
     const {interviewId} = req.body
+    
+    if (!interviewId) {
+      return res.status(400).json({message:"interviewId is required"})
+    }
+    
     const interview = await Interview.findById(interviewId)
     if(!interview){
-      return res.status(400).json({message:"failed to find Interview"})
+      return res.status(404).json({message:"Interview not found"})
+    }
+
+    if (interview.userId.toString() !== req.userId) {
+      return res.status(403).json({message:"Unauthorized: You do not have access to this interview"})
     }
 
     const totalQuestions = interview.questions.length;
@@ -416,6 +448,10 @@ export const getInterviewReport = async (req,res) => {
 
     if (!interview) {
       return res.status(404).json({ message: "Interview not found" });
+    }
+
+    if (interview.userId.toString() !== req.userId) {
+      return res.status(403).json({ message: "Unauthorized: You do not have access to this interview" });
     }
 
 

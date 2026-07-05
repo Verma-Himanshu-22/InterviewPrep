@@ -32,34 +32,35 @@ function Home() {
     <div className='min-h-screen bg-slate-950 text-slate-100'>
       <Navbar />
 
-      <main className='flex-1 px-4 sm:px-6 lg:px-10 py-10'>
-        <div className='mx-auto max-w-7xl space-y-16'>
+      <main className='flex-1 px-3 sm:px-4 lg:px-10 py-6 sm:py-8 lg:py-10'>
+        <div className='mx-auto max-w-7xl space-y-12 sm:space-y-16'>
 
-          <section className='relative overflow-hidden rounded-[32px] border border-slate-800 bg-slate-900/90 shadow-[0_30px_90px_-50px_rgba(0,0,0,0.9)] p-8 lg:p-12'>
+          <section className='relative overflow-hidden rounded-[24px] sm:rounded-[32px] border border-slate-800 bg-slate-900/90 shadow-[0_30px_90px_-50px_rgba(0,0,0,0.9)] p-6 sm:p-8 lg:p-12'>
             <div className='pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-emerald-500/15 to-transparent blur-3xl' />
-            <div className='relative space-y-10 text-center'>
-              <div className='inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-300'>
-                <HiSparkles size={16} />
-                AI-powered interview preparation for high performers
+            <div className='relative space-y-6 sm:space-y-10 text-center'>
+              <div className='inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-3 sm:px-4 py-2 text-xs sm:text-sm text-emerald-300'>
+                <HiSparkles size={14} className='sm:size-[16px]' />
+                <span className='hidden sm:inline'>AI-powered interview preparation for high performers</span>
+                <span className='sm:hidden'>AI-powered interview prep</span>
               </div>
-              <div className='space-y-6'>
+              <div className='space-y-4 sm:space-y-6'>
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className='text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight'>
+                  className='text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight'>
                   Get interview ready with modern AI coaching
                 </motion.h1>
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8 }}
-                  className='mx-auto max-w-2xl text-slate-400 text-base sm:text-lg leading-relaxed'>
+                  className='mx-auto max-w-2xl text-slate-400 text-sm sm:text-base md:text-lg leading-relaxed px-2'>
                   Practice role-based interviews, receive instant feedback, and track progress with a premium UI designed for serious preparation.
                 </motion.p>
               </div>
 
-              <div className='flex flex-wrap justify-center gap-4'>
+              <div className='flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 pt-2'>
                 <motion.button
                   onClick={() => {
                     if (!userData) {
@@ -70,7 +71,7 @@ function Home() {
                   }}
                   whileHover={{ opacity: 0.95, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className='rounded-full bg-emerald-500 px-10 py-3 text-sm font-semibold text-slate-950 transition shadow-xl shadow-emerald-500/20 hover:bg-emerald-400'>
+                  className='rounded-full bg-emerald-500 px-6 sm:px-10 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-slate-950 transition shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 w-full sm:w-auto'>
                   Start Interview
                 </motion.button>
                 <motion.button
@@ -83,14 +84,14 @@ function Home() {
                   }}
                   whileHover={{ opacity: 0.95, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className='rounded-full border border-slate-700 bg-slate-900/90 px-10 py-3 text-sm text-slate-300 transition hover:border-emerald-400 hover:text-white'>
+                  className='rounded-full border border-slate-700 bg-slate-900/90 px-6 sm:px-10 py-2.5 sm:py-3 text-xs sm:text-sm text-slate-300 transition hover:border-emerald-400 hover:text-white hover:bg-slate-800/50 w-full sm:w-auto'>
                   View History
                 </motion.button>
               </div>
             </div>
           </section>
 
-          <section className='grid gap-6 lg:grid-cols-3'>
+          <section className='grid gap-4 sm:gap-6 lg:grid-cols-3'>
             {[
               {
                 icon: <BsRobot size={24} className='text-emerald-300' />,
@@ -113,24 +114,24 @@ function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className='rounded-[28px] border border-slate-800 bg-slate-900/90 p-8 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.9)]'>
-                <div className='mb-6 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-slate-800 text-emerald-300'>
+                className='rounded-[24px] sm:rounded-[28px] border border-slate-800 bg-slate-900/90 p-5 sm:p-8 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.9)] hover:border-slate-700 hover:bg-slate-900 transition'>
+                <div className='mb-4 sm:mb-6 inline-flex h-12 sm:h-14 w-12 sm:w-14 items-center justify-center rounded-3xl bg-slate-800 text-emerald-300'>
                   {item.icon}
                 </div>
-                <h3 className='text-xl font-semibold text-slate-100 mb-3'>{item.title}</h3>
-                <p className='text-slate-400 text-sm leading-relaxed'>{item.desc}</p>
+                <h3 className='text-lg sm:text-xl font-semibold text-slate-100 mb-2 sm:mb-3'>{item.title}</h3>
+                <p className='text-slate-400 text-xs sm:text-sm leading-relaxed'>{item.desc}</p>
               </motion.div>
             ))}
           </section>
 
-          <section className='space-y-8'>
-            <div className='text-center'>
-              <h2 className='text-3xl md:text-4xl font-semibold text-slate-100'>Modern interview capabilities</h2>
-              <p className='mx-auto mt-4 max-w-2xl text-slate-400'>
+          <section className='space-y-6 sm:space-y-8'>
+            <div className='text-center px-2'>
+              <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold text-slate-100'>Modern interview capabilities</h2>
+              <p className='mx-auto mt-3 sm:mt-4 max-w-2xl text-slate-400 text-xs sm:text-sm md:text-base'>
                 Everything you need for confident interview preparation, from AI evaluation to actionable reports.
               </p>
             </div>
-            <div className='grid gap-6 lg:grid-cols-2'>
+            <div className='grid gap-4 sm:gap-6 lg:grid-cols-2'>
               {[
                 {
                   image: evalImg,
@@ -158,14 +159,14 @@ function Home() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className='rounded-[32px] border border-slate-800 bg-slate-900/90 p-8 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.9)]'>
-                  <div className='flex flex-col gap-6 md:flex-row'>
-                    <div className='flex h-28 w-28 items-center justify-center rounded-3xl bg-slate-800'>
-                      <img src={item.image} alt={item.title} className='h-20 w-auto object-contain' />
+                  className='rounded-[24px] sm:rounded-[32px] border border-slate-800 bg-slate-900/90 p-5 sm:p-8 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.9)] hover:border-slate-700 hover:bg-slate-900 transition'>
+                  <div className='flex flex-col gap-4 sm:gap-6 md:flex-row md:items-center'>
+                    <div className='flex h-24 sm:h-28 w-24 sm:w-28 items-center justify-center rounded-3xl bg-slate-800 flex-shrink-0'>
+                      <img src={item.image} alt={item.title} className='h-16 sm:h-20 w-auto object-contain' />
                     </div>
                     <div>
-                      <h3 className='text-xl font-semibold text-slate-100 mb-3'>{item.title}</h3>
-                      <p className='text-slate-400 text-sm leading-relaxed'>{item.desc}</p>
+                      <h3 className='text-lg sm:text-xl font-semibold text-slate-100 mb-2 sm:mb-3'>{item.title}</h3>
+                      <p className='text-slate-400 text-xs sm:text-sm leading-relaxed'>{item.desc}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -173,11 +174,11 @@ function Home() {
             </div>
           </section>
 
-          <section className='space-y-8'>
-            <div className='text-center'>
-              <h2 className='text-3xl md:text-4xl font-semibold text-slate-100'>Interview modes designed for every journey</h2>
+          <section className='space-y-6 sm:space-y-8'>
+            <div className='text-center px-2'>
+              <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold text-slate-100'>Interview modes designed for every journey</h2>
             </div>
-            <div className='grid gap-6 lg:grid-cols-2'>
+            <div className='grid gap-4 sm:gap-6 lg:grid-cols-2'>
               {[
                 {
                   img: hrImg,
@@ -205,14 +206,14 @@ function Home() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className='rounded-[32px] border border-slate-800 bg-slate-900/90 p-8 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.9)]'>
-                  <div className='flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between'>
-                    <div>
-                      <h3 className='text-xl font-semibold text-slate-100 mb-3'>{mode.title}</h3>
-                      <p className='text-slate-400 text-sm leading-relaxed'>{mode.desc}</p>
+                  className='rounded-[24px] sm:rounded-[32px] border border-slate-800 bg-slate-900/90 p-5 sm:p-8 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.9)] hover:border-slate-700 hover:bg-slate-900 transition'>
+                  <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+                    <div className='flex-1'>
+                      <h3 className='text-lg sm:text-xl font-semibold text-slate-100 mb-2 sm:mb-3'>{mode.title}</h3>
+                      <p className='text-slate-400 text-xs sm:text-sm leading-relaxed'>{mode.desc}</p>
                     </div>
-                    <div className='flex items-center justify-center rounded-3xl bg-slate-800 p-4'>
-                      <img src={mode.img} alt={mode.title} className='h-20 w-auto object-contain' />
+                    <div className='flex items-center justify-center rounded-3xl bg-slate-800 p-3 sm:p-4 flex-shrink-0'>
+                      <img src={mode.img} alt={mode.title} className='h-16 sm:h-20 w-auto object-contain' />
                     </div>
                   </div>
                 </motion.div>

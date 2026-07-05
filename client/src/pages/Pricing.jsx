@@ -97,7 +97,10 @@ function Pricing() {
 
       setLoadingPlan(null);
     } catch (error) {
-     console.log(error)
+      setLoadingPlan(null);
+      const errorMsg = error.response?.data?.message || error.message || "Payment failed. Please try again.";
+      alert(`Error: ${errorMsg}`);
+      console.log(error)
      setLoadingPlan(null);
     }
   }
